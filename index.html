@@ -103,47 +103,49 @@
         </dl>
         </section>
 
-
-        <section>
+        <section class="projects-section">
             <h3>Projects</h3>
-
-            <div class="three-col">
-
-                <div class="card">
-                <h3>My Campus Route</h3>
-                <img src="images/mcr.jpg"Campus Route Project" width="50" height="50">
-                <ul>
-                    <li>React, Python, REST APIs, MongoDB</li>
-                    <li>Scalable transit platform across college campuses</li>
-                    <li>Real-time geospatial tracking system</li>
-                    <li>JWT authentication & multi-tenant management</li>
-                    <li>Deployed on frontend <a href="https://mycampusroute.vercel.app?">Vercel</a> & backend on Render</li>
-                </ul>
+            <div class="project-carousel" aria-label="Projects">
+                <button class="carousel-button carousel-button-prev" type="button" aria-label="Show previous project" title="Previous project">&larr;</button>
+                <div class="project-viewport">
+                    <div class="project-track">
+                        <div class="card is-new">
+                            <span class="new-badge">New</span>
+                            <h3>My Campus Route</h3>
+                            <img src="images/mcr.jpg" alt="Campus Route Project" width="50" height="50">
+                            <ul>
+                                <li>React, Python, REST APIs, MongoDB</li>
+                                <li>Scalable transit platform across college campuses</li>
+                                <li>Real-time geospatial tracking system</li>
+                                <li>JWT authentication & multi-tenant management</li>
+                                <li>Deployed on frontend <a href="https://mycampusroute.vercel.app?">Vercel</a> & backend on Render</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3>BrainBark - Study Deck</h3>
+                            <img src="images/bbsd.jpg" alt="BrainBark Project" width="50" height="50">
+                            <ul>
+                                <li>Python, AWS Lambda, DynamoDB</li>
+                                <li>JavaScript, Tailwind CSS, Figma</li>
+                                <li>AWS cloud architecture with Lambda functions</li>
+                                <li>Scalable NoSQL data storage</li>
+                                <li>Comprehensive UI/UX design</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3>Multi-Threaded Grid Analysis</h3>
+                            <img src="images/mtga.jpg" alt="Grid Analysis Project" width="50" height="50">
+                            <ul>
+                                <li>C, POSIX Threads, Linux System Calls</li>
+                                <li>High-performance parallel computation</li>
+                                <li>Complex pointer arithmetic</li>
+                                <li>Manual memory management</li>
+                                <li>Large-scale 2D dataset processing</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="card">
-                <h3>BrainBark - Study Deck</h3>
-                <img src="images/bbsd.jpg" alt="BrainBark Project" width="50" height="50">
-                <ul>
-                    <li>Python, AWS Lambda, DynamoDB</li>
-                    <li>JavaScript, Tailwind CSS, Figma</li>
-                    <li>AWS cloud architecture with Lambda functions</li>
-                    <li>Scalable NoSQL data storage</li>
-                    <li>Comprehensive UI/UX design</li>
-                </ul>
-                </div>
-
-                <div class="card">
-                <h3>Multi-Threaded Grid Analysis</h3>
-                <img src="images/mtga.jpg" alt="Grid Analysis Project" width="50" height="50">
-                <ul>
-                    <li>C, POSIX Threads, Linux System Calls</li>
-                    <li>High-performance parallel computation</li>
-                    <li>Complex pointer arithmetic</li>
-                    <li>Manual memory management</li>
-                    <li>Large-scale 2D dataset processing</li>
-                </ul>
-                </div>
+                <button class="carousel-button carousel-button-next" type="button" aria-label="Show next project" title="Next project">&rarr;</button>
             </div>
         </section>
     </section>
@@ -153,5 +155,37 @@
          <a href="contact.html" class="bottom-link">Contact Ethan Scott</a>
          <a href="https://www.linkedin.com/in/ethan-scott-131908335"> <i class="fa-brands fa-linkedin"></i></a>
         </footer>
+        <script>
+            const projectTrack = document.querySelector('.project-track');
+            const projectCards = document.querySelectorAll('.project-track .card');
+            const previousProjectButton = document.querySelector('.carousel-button-prev');
+            const nextProjectButton = document.querySelector('.carousel-button-next');
+            let currentProject = 0;
+
+            function updateProjectCarousel() {
+                projectTrack.style.transform = `translateX(-${currentProject * 100}%)`;
+                previousProjectButton.disabled = currentProject === 0;
+                nextProjectButton.disabled = currentProject === projectCards.length - 1;
+                projectCards.forEach((card, index) => {
+                    card.setAttribute('aria-hidden', index !== currentProject);
+                });
+            }
+
+            previousProjectButton.addEventListener('click', () => {
+                if (currentProject > 0) {
+                    currentProject -= 1;
+                    updateProjectCarousel();
+                }
+            });
+
+            nextProjectButton.addEventListener('click', () => {
+                if (currentProject < projectCards.length - 1) {
+                    currentProject += 1;
+                    updateProjectCarousel();
+                }
+            });
+
+            updateProjectCarousel();
+        </script>
     </body>
 </html>
